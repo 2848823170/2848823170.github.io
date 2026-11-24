@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="Systems, Algorithms &amp; AI Automation Engineering">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060b16"/>
+      <stop offset="52%" stop-color="#0b1528"/>
+      <stop offset="100%" stop-color="#071220"/>
+    </linearGradient>
+    <radialGradient id="glowEmerald" cx="18%" cy="18%" r="55%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="84%" cy="24%" r="52%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="58%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#7dd3fc"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1e293b" stroke-width="0.8" stroke-opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <!-- Base Canvas & Subtle Grid -->
+  <rect width="1200" height="320" rx="16" fill="url(#bgGrad)"/>
+  <rect width="1200" height="320" rx="16" fill="url(#grid)"/>
+  <rect width="1200" height="320" rx="16" fill="url(#glowEmerald)"/>
+  <rect width="1200" height="320" rx="16" fill="url(#glowCyan)"/>
+  <rect x="1" y="1" width="1198" height="318" rx="15" fill="none" stroke="#334155" stroke-opacity="0.65" stroke-width="1.5"/>
+
+  <!-- Left Column: Identity & Core Engineering Pillars -->
+  <g transform="translate(52, 46)">
+    <!-- Status Pill -->
+    <rect x="0" y="0" width="298" height="28" rx="14" fill="#0f2924" stroke="#10b981" stroke-opacity="0.55" stroke-width="1"/>
+    <circle cx="16" cy="14" r="4.5" fill="#10b981"/>
+    <text x="29" y="18.5" fill="#6ee7b7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="700" letter-spacing="0.4">SYSTEMS · ALGORITHMS · AI ENGINEERING</text>
+
+    <!-- Main Headline -->
+    <text x="0" y="76" fill="url(#titleGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="38" font-weight="800" letter-spacing="-0.6">Full-Stack Systems &amp; Algorithms</text>
+    <text x="0" y="118" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="-0.5">Low-Latency Backends · Solvers · Web3 &amp; AI</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="154" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="500">Building deterministic financial engines, real-time WebSocket trading infrastructure,</text>
+    <text x="0" y="176" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="500">computational geometry autorouters, and production Telegram / n8n / TON tooling.</text>
+
+    <!-- Stack Badges -->
+    <g transform="translate(0, 198)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600">
+      <rect x="0" y="0" width="128" height="28" rx="7" fill="#111c30" stroke="#334155"/>
+      <text x="64" y="18.5" fill="#e2e8f0" text-anchor="middle">Python · FastAPI</text>
+
+      <rect x="138" y="0" width="144" height="28" rx="7" fill="#111c30" stroke="#334155"/>
+      <text x="210" y="18.5" fill="#e2e8f0" text-anchor="middle">TypeScript · React</text>
+
+      <rect x="292" y="0" width="136" height="28" rx="7" fill="#111c30" stroke="#334155"/>
+      <text x="360" y="18.5" fill="#e2e8f0" text-anchor="middle">PostgreSQL 16+</text>
+
+      <rect x="438" y="0" width="118" height="28" rx="7" fill="#111c30" stroke="#334155"/>
+      <text x="497" y="18.5" fill="#e2e8f0" text-anchor="middle">TON · EVM</text>
+
+      <rect x="566" y="0" width="132" height="28" rx="7" fill="#111c30" stroke="#334155"/>
+      <text x="632" y="18.5" fill="#e2e8f0" text-anchor="middle">aiogram 3 · n8n</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Sleek Architecture / Telemetry Terminal Card -->
+  <g transform="translate(790, 38)">
+    <rect x="0" y="0" width="362" height="244" rx="12" fill="#090f1d" stroke="#334155" stroke-width="1.2"/>
+    <rect x="0" y="0" width="362" height="32" rx="12" fill="#0f172a"/>
+    <rect x="0" y="20" width="362" height="12" fill="#0f172a"/>
+    <line x1="0" y1="32" x2="362" y2="32" stroke="#1e293b" stroke-width="1"/>
+    <circle cx="18" cy="16" r="5" fill="#ef4444" fill-opacity="0.85"/>
+    <circle cx="34" cy="16" r="5" fill="#f59e0b" fill-opacity="0.85"/>
+    <circle cx="50" cy="16" r="5" fill="#10b981" fill-opacity="0.85"/>
+    <text x="181" y="20" fill="#64748b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" font-weight="600" text-anchor="middle">2848823170.github.io — studio</text>
+
+    <g transform="translate(18, 54)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12">
+      <text x="0" y="0" fill="#38bdf8" font-weight="700">$ status --systems --verified</text>
+
+      <text x="0" y="28" fill="#10b981">✓</text>
+      <text x="18" y="28" fill="#e2e8f0">orderbook-ws</text>
+      <text x="152" y="28" fill="#64748b">FIFO · ~80µs · PG16</text>
+
+      <text x="0" y="54" fill="#10b981">✓</text>
+      <text x="18" y="54" fill="#e2e8f0">ledgerclean-pro</text>
+      <text x="152" y="54" fill="#64748b">BigInt · Ed25519 · CSP</text>
+
+      <text x="0" y="80" fill="#10b981">✓</text>
+      <text x="18" y="80" fill="#e2e8f0">docuclean-pro</text>
+      <text x="152" y="80" fill="#64748b">PDF/CJK -&gt; XLSX/DOCX</text>
+
+      <text x="0" y="106" fill="#10b981">✓</text>
+      <text x="18" y="106" fill="#e2e8f0">ton-v5-batch</text>
+      <text x="152" y="106" fill="#64748b">V5R1 · 255 msgs/tx</text>
+
+      <text x="0" y="132" fill="#10b981">✓</text>
+      <text x="18" y="132" fill="#e2e8f0">n8n-aiogram-crm</text>
+      <text x="152" y="132" fill="#64748b">FSM · HMAC · Webhook</text>
+
+      <line x1="0" y1="150" x2="326" y2="150" stroke="#1e293b" stroke-width="1"/>
+      <rect x="0" y="162" width="326" height="6" rx="3" fill="#1e293b"/>
+      <rect x="0" y="162" width="326" height="6" rx="3" fill="url(#accentGrad)"/>
+      <text x="0" y="183" fill="#94a3b8" font-size="11">CI Matrix: Ubuntu + Windows · 100% Passing</text>
+    </g>
+  </g>
+</svg>

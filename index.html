@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none';" />
+  <title>Engineering Studio &amp; Live Systems Hub — Full-Stack, Algorithms, Web3 &amp; AI</title>
+  <meta name="description" content="Interactive systems portfolio: FastAPI Asyncio WebSocket OrderBook & Signal Terminal, TON V5R1 Bulk Dispatcher, n8n + aiogram 3 CRM Bridge, LedgerClean Pro, and DocuClean Pro." />
+  <style>
+    :root {
+      --bg: #060b16;
+      --bg-card: #0c1526;
+      --bg-elevated: #132038;
+      --ink: #f8fafc;
+      --ink-muted: #94a3b8;
+      --emerald: #10b981;
+      --cyan: #38bdf8;
+      --amber: #fbbf24;
+      --border: rgba(148, 163, 184, 0.18);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 14% 0%, rgba(16, 185, 129, 0.15), transparent 42%),
+        radial-gradient(circle at 86% 6%, rgba(56, 189, 248, 0.14), transparent 42%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+    /* Navbar */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(6, 11, 22, 0.88);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; gap: 12px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--ink); }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      color: #03131d; display: grid; place-items: center; font-weight: 900; font-size: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .nav-right { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 8px 15px; border-radius: 9px; font-size: 13.5px; font-weight: 700;
+      border: 1px solid var(--border); background: var(--bg-elevated); color: var(--ink);
+      cursor: pointer; transition: transform 0.12s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(248, 250, 252, 0.38); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #02140d; border-color: transparent;
+    }
+    .btn-cyan {
+      background: linear-gradient(135deg, var(--cyan), #0284c7);
+      color: #031524; border-color: transparent;
+    }
+    .btn-amber {
+      background: linear-gradient(135deg, #ffe600, #f59e0b);
+      color: #0f172a; border-color: transparent;
+    }
+
+    /* Hero */
+    .hero { padding: 48px 0 32px; }
+    .hero-banner { width: 100%; border-radius: 16px; display: block; margin-bottom: 26px; box-shadow: 0 20px 48px rgba(0,0,0,0.45); }
+    .sec-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin: 36px 0 18px;
+    }
+    .sec-head h2 { margin: 0; font-size: 24px; letter-spacing: -0.02em; }
+    .sec-sub { color: var(--ink-muted); font-size: 14px; }
+
+    /* Cards Grid */
+    .grid3 {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 18px;
+    }
+    .grid2 {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+      gap: 16px; transition: border-color 0.15s ease;
+    }
+    .card:hover { border-color: rgba(56, 189, 248, 0.42); }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11.5px; font-weight: 700; color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 3px 9px; border-radius: 999px; margin-bottom: 10px;
+    }
+    .kicker.cyan { color: #7dd3fc; background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.35); }
+    .kicker.amber { color: #fde047; background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.35); }
+    .card h3 { margin: 0 0 8px; font-size: 19px; line-height: 1.3; }
+    .card p { margin: 0 0 12px; color: var(--ink-muted); font-size: 14px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11.5px; padding: 3px 8px; border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; }
+
+    .oss-box {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 24px; margin-top: 18px;
+    }
+    .oss-box ul { margin: 10px 0 0; padding-left: 20px; color: #cbd5e1; font-size: 14.5px; }
+    .oss-box li { margin-bottom: 8px; }
+
+    footer {
+      margin-top: 52px; border-top: 1px solid var(--border);
+      padding: 26px 0 40px; text-align: center; font-size: 13.5px; color: var(--ink-muted);
+    }
+    [data-lang="zh"] { display: none; }
+    body.lang-zh [data-lang="en"] { display: none; }
+    body.lang-zh [data-lang="zh"] { display: block; }
+    span[data-lang="zh"] { display: none; }
+    body.lang-zh span[data-lang="en"] { display: none; }
+    body.lang-zh span[data-lang="zh"] { display: inline; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <span data-lang="en">Systems, Algorithms &amp; AI Studio</span>
+        <span data-lang="zh">全栈系统 · 算法与 AI 自动化工程工作室</span>
+      </a>
+      <div class="nav-right">
+        <a class="btn" href="#live-apps">
+          <span data-lang="en">Live Apps (3)</span>
+          <span data-lang="zh">在线交互系统 (3)</span>
+        </a>
+        <a class="btn" href="#web3-ai">
+          <span data-lang="en">Web3 &amp; AI Kits</span>
+          <span data-lang="zh">Web3 与智能体工具</span>
+        </a>
+        <a class="btn" href="https://github.com/2848823170" target="_blank" rel="noopener">GitHub @2848823170 ↗</a>
+        <button class="btn btn-cyan" id="langToggle" type="button">中文 / EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="hero">
+      <img class="hero-banner" src="./banner.svg" alt="Full-Stack Systems, Algorithms & AI Engineering Banner" />
+    </section>
+
+    <!-- 1. Live Interactive Web Systems -->
+    <div class="sec-head" id="live-apps">
+      <h2>
+        <span data-lang="en">Live Interactive Systems &amp; Zero-Cloud Products</span>
+        <span data-lang="zh">实时在线交互系统与零云端商业软件</span>
+      </h2>
+      <div class="sec-sub">
+        <span data-lang="en">Click any system below to run it immediately in your browser — zero signup required.</span>
+        <span data-lang="zh">全部支持浏览器一键打开即用 · 100% 本地内存运行零隐私泄漏</span>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <!-- App 1: FastAPI WS OrderBook -->
+      <article class="card">
+        <div>
+          <span class="kicker cyan">LIVE TRADING ENGINE · ~80µs</span>
+          <h3>
+            <span data-lang="en">FastAPI Asyncio OrderBook &amp; Signal Terminal</span>
+            <span data-lang="zh">FastAPI Asyncio 实时订单簿与微观信号终端</span>
+          </h3>
+          <p data-lang="en">
+            Single-writer <code>asyncio.Queue</code> price-time priority (FIFO) matching engine, live <code>EWMA</code> / <code>VWAP</code> / L2 imbalance signal stream, PostgreSQL 16+ declarative range partitioning DDL, and TypeScript WebSocket terminal.
+          </p>
+          <p data-lang="zh">
+            单写协程 <code>asyncio.Queue</code> 价格时间优先撮合队列（~40–120µs 延迟）、EWMA/VWAP/盘口失衡度实时信号流、PostgreSQL 16+ 按月分区表 DDL 与 TypeScript 实时盘口终端。
+          </p>
+          <div class="tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">asyncio.Queue</span>
+            <span class="tag">WebSockets</span>
+            <span class="tag">PostgreSQL 16</span>
+            <span class="tag">TypeScript</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-cyan" href="https://2848823170.github.io/fastapi-ws-orderbook-demo/" target="_blank" rel="noopener">
+            <span data-lang="en">Launch Live Terminal ↗</span>
+            <span data-lang="zh">打开实时交易终端 ↗</span>
+          </a>
+          <a class="btn" href="https://github.com/2848823170/fastapi-ws-orderbook-demo" target="_blank" rel="noopener">GitHub Source</a>
+        </div>
+      </article>
+
+      <!-- App 2: LedgerClean Pro -->
+      <article class="card">
+        <div>
+          <span class="kicker">FINTECH · ZERO-CLOUD · ED25519</span>
+          <h3>
+            <span data-lang="en">LedgerClean Pro — Financial &amp; Beancount Reconciler</span>
+            <span data-lang="zh">账清 LedgerClean Pro — 多平台流水与凭证核销工作台</span>
+          </h3>
+          <p data-lang="en">
+            100% offline multi-platform payout &amp; bank statement reconciler with automatic <code>GB18030</code>/<code>UTF-8</code> decoding, exact <code>BigInt</code> micro-unit math, subset-sum <code>N:1</code> voucher matching, and balanced <strong>Beancount</strong> / QuickBooks / CSV exports.
+          </p>
+          <p data-lang="zh">
+            纯本地断网运行的多平台支付账单、银行流水与电子凭证自动核销工作台：自动识别 GBK 乱码、保留 28 位长单号、N 对 1 组合凑单配平，一键导出 Excel 总表与 Beancount 复式账本。
+          </p>
+          <div class="tags">
+            <span class="tag">BigInt Exact Math</span>
+            <span class="tag">Beancount</span>
+            <span class="tag">Subset-Sum N:1</span>
+            <span class="tag">Ed25519 WebCrypto</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://2848823170.github.io/ledgerclean-pro/" target="_blank" rel="noopener">
+            <span data-lang="en">Open Studio &amp; Demo ↗</span>
+            <span data-lang="zh">打开工作台与在线试用 ↗</span>
+          </a>
+          <a class="btn" href="https://github.com/2848823170/ledgerclean-cli" target="_blank" rel="noopener">CLI Repo</a>
+        </div>
+      </article>
+
+      <!-- App 3: DocuClean Pro -->
+      <article class="card">
+        <div>
+          <span class="kicker amber">DOCUMENT ENGINE · OPENXML</span>
+          <h3>
+            <span data-lang="en">DocuClean Pro — PDF / HTML / Mojibake to XLSX &amp; DOCX</span>
+            <span data-lang="zh">DocuClean Pro — 文档表格秒转与乱码修复引擎</span>
+          </h3>
+          <p data-lang="en">
+            Converts multi-page PDF tables, nested <code>rowspan</code>/<code>colspan</code> HTML reports, JSON/XML dumps, and corrupted CJK CSVs into auto-sized, formula-ready OpenXML <code>.xlsx</code> workbooks &amp; structured <code>.docx</code> files offline.
+          </p>
+          <p data-lang="zh">
+            把跨页 PDF 表格、合并单元格网页表、GB18030/双重编码乱码 CSV 秒级转换为自适应列宽、带 SUM 公式的原生 <code>.xlsx</code> 工作簿与整洁 <code>.docx</code> 文档，内置防公式注入保护。
+          </p>
+          <div class="tags">
+            <span class="tag">PDF Table Stitch</span>
+            <span class="tag">CJK Mojibake Fix</span>
+            <span class="tag">OpenXML .xlsx/.docx</span>
+            <span class="tag">DDE Safe</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-amber" href="https://2848823170.github.io/docuclean-pro/" target="_blank" rel="noopener">
+            <span data-lang="en">Open Live Converter ↗</span>
+            <span data-lang="zh">打开秒转工作台 ↗</span>
+          </a>
+          <a class="btn" href="https://github.com/2848823170/docuclean-pro" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- 2. Web3 & AI Workflow Kits -->
+    <div class="sec-head" id="web3-ai">
+      <h2>
+        <span data-lang="en">Web3 Infrastructure &amp; AI Automation Tooling</span>
+        <span data-lang="zh">Web3 链上批处理与 AI 智能体自动化套件</span>
+      </h2>
+      <div class="sec-sub">
+        <span data-lang="en">Production-tested TypeScript &amp; Python repositories with Ubuntu + Windows CI passing.</span>
+        <span data-lang="zh">全部附完整自动化单元测试与双系统 GitHub Actions 绿标认证</span>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <article class="card">
+        <div>
+          <span class="kicker cyan">TON BLOCKCHAIN · WALLET V5R1 &amp; HIGHLOAD V3</span>
+          <h3>
+            <span data-lang="en">TON Wallet V5R1 Bulk Sender (Up to 255 Transfers / Tx)</span>
+            <span data-lang="zh">TON Wallet V5R1 高并发批量转账分发器（单笔最高 255 条）</span>
+          </h3>
+          <p data-lang="en">
+            Non-custodial TypeScript/Node CLI built on <code>@ton/ton</code> <code>WalletContractV5R1</code> packing up to 255 transfers per message (<code>63.75x</code> fewer txs than V4R2), with automatic <code>UQ...</code>/<code>EQ...</code> bounce safety, <code>--dry-run</code> fee simulation, sequential <code>seqno</code> confirmation polling, crash-safe JSONL checkpoints, and a <code>HighloadWalletV3</code> + <code>USDT</code> Jetton guide.
+          </p>
+          <p data-lang="zh">
+            基于 <code>@ton/ton</code> <code>WalletContractV5R1</code> 的非托管批量分发工具，单笔交易打包多达 255 笔转账，支持 <code>UQ/EQ</code> bounce 自动推断、<code>--dry-run</code> 余额手续费预演、<code>seqno</code> 链上确认轮询、断点续传与 Highload V3 / USDT Jetton 指南。
+          </p>
+          <div class="tags">
+            <span class="tag">@ton/ton V5R1</span>
+            <span class="tag">255 msgs/tx</span>
+            <span class="tag">Highload V3 Guide</span>
+            <span class="tag">USDT Jetton</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-cyan" href="https://github.com/2848823170/ton-v5-batch-sender" target="_blank" rel="noopener">View Repository &amp; Docs ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="kicker">TELEGRAM · AIOGRAM 3 · FASTAPI · N8N</span>
+          <h3>
+            <span data-lang="en">n8n + aiogram 3 + FastAPI Lead Intake &amp; CRM Bridge</span>
+            <span data-lang="zh">n8n + aiogram 3 + FastAPI 智能线索评分与 CRM 对接套件</span>
+          </h3>
+          <p data-lang="en">
+            End-to-end bilingual (<code>EN</code>/<code>RU</code>) <code>aiogram 3</code> FSM Telegram intake bot, deterministic <code>0–100</code> <code>HOT|WARM|COLD</code> multi-currency lead scorer, inline Admin Triage cards, <code>FastAPI</code> webhook bridge (native JSON + Tilda + <code>HMAC-SHA256</code>), and importable 7-node <code>n8n</code> workflow routing to <code>amoCRM</code> &amp; Google Sheets.
+          </p>
+          <p data-lang="zh">
+            开箱即用的 <code>aiogram 3</code> 状态机线索机器人 + 0–100 分热度自动评级 + 管理员一键审批卡片 + <code>FastAPI</code> HMAC 签名网关 + 可直接导入的 7 节点 <code>n8n</code> 工作流（自动同步 amoCRM 与 Google Sheets）。
+          </p>
+          <div class="tags">
+            <span class="tag">aiogram 3 FSM</span>
+            <span class="tag">FastAPI HMAC</span>
+            <span class="tag">n8n Workflow JSON</span>
+            <span class="tag">amoCRM / Sheets</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://2848823170.github.io/n8n-aiogram-lead-kit/" target="_blank" rel="noopener">
+            <span data-lang="en">Launch Live Playground ↗</span>
+            <span data-lang="zh">打开在线模拟器 ↗</span>
+          </a>
+          <a class="btn" href="https://github.com/2848823170/n8n-aiogram-lead-kit" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- 3. Open-Source Systems & Custom Engineering -->
+    <section class="oss-box">
+      <h3 style="margin:0;font-size:19px;">
+        <span data-lang="en">Open-Source Systems Work &amp; Custom Engineering Services</span>
+        <span data-lang="zh">开源底层算法贡献与定制开发服务</span>
+      </h3>
+      <ul data-lang="en">
+        <li><strong>EDA &amp; Computational Geometry Solvers (TypeScript / Bun)</strong>: High-density PCB polyline &amp; via-clearance constraint projection, BGA pad-channel topology filtering, sub-via hypergraph port-point pathing, schematic net-label placement, and focus-isolated canvas undo across <code>tscircuit/*</code> repositories.</li>
+        <li><strong>On-Chain Supply &amp; Smart-Contract Auditing (Node.js / CosmWasm)</strong>: Deterministic RPC bank supply, paginated validator staking, and <code>code_id 5530</code> Gringotts linear-vesting contract verification on Sei (<code>pacific-1</code>).</li>
+        <li><strong>Custom Sprints &amp; Commercial Delivery</strong>: Rapid milestone delivery for Python (<code>FastAPI</code>, <code>asyncio</code>, <code>aiogram 3</code>), TypeScript/React trading &amp; data UIs, TON/EVM batch tooling, <code>n8n</code> workflows, and Model Context Protocol (<code>MCP</code>) servers.</li>
+      </ul>
+      <ul data-lang="zh">
+        <li><strong>计算几何与芯片/PCB自动布线求解器 (TypeScript / Bun)</strong>：高密度过孔间距约束投影、BGA 扇出拓扑过滤、超图路径规划与交互式画布撤销系统。</li>
+        <li><strong>链上代币供应量与归属合约审计 (Node.js / CosmWasm)</strong>：确定性 RPC 链上总供应量、验证者质押分页汇总与线性解锁合约校验。</li>
+        <li><strong>国内闲鱼官方担保快速通道</strong>：
+          <a href="https://www.goofish.com/item?id=1102654549394" target="_blank" rel="noopener">AI智能体 Skill / MCP 配置与 Python 部署 (¥5起)</a> ·
+          <a href="https://www.goofish.com/item?id=1103577856519" target="_blank" rel="noopener">Python 脚本与 Excel 自动化定制 (¥29.9)</a> ·
+          <a href="https://www.goofish.com/item?id=1101539642643" target="_blank" rel="noopener">PDF转Word/Excel表格精修 (¥4.9起)</a> ·
+          <a href="https://www.goofish.com/item?id=1102543877537" target="_blank" rel="noopener">账清 LedgerClean Pro 离线买断版 (¥9.9)</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span data-lang="en">Full-Stack Systems, Algorithms &amp; AI Engineering · <a href="https://github.com/2848823170">github.com/2848823170</a></span>
+      <span data-lang="zh">全栈系统、算法与 AI 自动化工程工作室 · <a href="https://github.com/2848823170">github.com/2848823170</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('langToggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        document.body.classList.toggle('lang-zh');
+      });
+    })();
+  </script>
+</body>
+</html>
